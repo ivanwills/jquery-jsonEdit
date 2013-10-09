@@ -1,0 +1,80 @@
+/*
+ * This is an example styling of the JSON
+ *
+ * The classes are applied in a hireachy
+ */
+
+form .metadata-form-json input {
+    clear : both;
+    float : left;
+    display : block;
+}
+.json {
+    clear : both;
+    float : left;
+    width : 100%;
+}
+.json.hidden:after {
+    content : ' {admin only}';
+    color : grey;
+}
+.json.hidden .metadata-json {
+    display : none;
+}
+.json .label {
+    float : left;
+}
+.json .metadata-json {
+    float : left;
+}
+.jsonEdit .jsonEdit-object {
+    clear : both;
+    float : left;
+}
+.jsonEdit .jsonEdit-key {
+    clear : left;
+    float : left;
+    padding : 1px 5px 1px 20px;
+    cursor : pointer;
+}
+.jsonEdit .jsonEdit-value {
+    clear : right;
+    float : left;
+    min-width : 5px;
+    cursor : pointer;
+}
+.jsonEdit .jsonEdit-value-undefined {
+    color : silver;
+}
+.jsonEdit .jsonEdit-value-boolean {
+    color : gray;
+    font-style : italic;
+}
+.jsonEdit .jsonEdit-value-number {
+    color : gray;
+}
+.jsonEdit .jsonEdit-key + .jsonEdit-value {
+    padding : 1px 0;
+}
+.jsonEdit .jsonEdit-plus {
+    clear : both;
+    float : left;
+    padding : 1px 5px 1px 0;
+}
+.jsonEdit .jsonEdit-plus input {
+    margin : -5px 0;
+    padding : 0;
+}
+.jsonEdit .jsonEdit-end {
+    clear : both;
+    float : left;
+}
+.jsonEdit .jsonEdit-plus.empty,
+.jsonEdit .jsonEdit-end.empty {
+    clear : none;
+}
+.page-details .json {
+    max-height : 200px;
+    overflow-y : auto;
+}
+
