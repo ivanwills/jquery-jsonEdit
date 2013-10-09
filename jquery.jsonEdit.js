@@ -49,7 +49,7 @@
                 var data    = self.data('jsonEdit');
                 var context = data.context;
 
-                context.append( '<div class="jsedit jsedit-array jsedit-array-open">{</div>' );
+                context.append( '<div class="jsedit jsedit-array jsedit-array-open">[</div>' );
 
                 for ( var key in a ) {
                     // if this isn't a plain array ignore inherited properties
@@ -57,6 +57,7 @@
 
                     context.append('<div class="jsedit jsedit-array jsedit-array-value">...</div>');
                     var value_div = $( $('.jsedit-array-value', context).get(-1) );
+                    value_div.text('');
                     value_div.jsonEdit({ json : a[key], edit : data.edit, count : data.count + 1 });
                 }
 
@@ -81,6 +82,7 @@
 
                     context.append('<div class="jsedit jsedit-object jsedit-object-value">...</div>');
                     var value_div = $( $('.jsedit-object-value', context).get(-1) );
+                    value_div.text('');
                     value_div.jsonEdit({ json : a[key], edit : data.edit, count : data.count + 1 });
                 }
 
