@@ -1,1 +1,7 @@
+.*.sw[ponxmn]
+tmp*
+*~
+.vimtagsdisplay
+tags
+errors.err
 .build*
