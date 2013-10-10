@@ -186,6 +186,18 @@
         json : function() {
         },
         toggle : function() {
+        },
+        clear : function() {
+            this.each( function() {
+                var self = $(this);
+                var data = self.data('jsonEdit');
+
+                for ( var key in data ) {
+                    if ( !data.hasOwnProperty(key) ) continue;
+                    data[key] = null;
+                }
+            });
+            this.html('');
         }
     };
 
