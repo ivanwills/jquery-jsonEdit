@@ -71,19 +71,25 @@
                 var context = data.context;
 
                 context.append( '<div class="jsedit jsedit-object jsedit-object-open">{</div>' );
+                if ( !data._json ) data._json = {};
 
                 for ( var key in a ) {
                     // if this isn't a plain object ignore inherited properties
                     if ( !a.hasOwnProperty(key) ) continue;
+                    if ( !data._json[key] ) data._json[key] = {};
 
                     context.append('<div class="jsedit jsedit-object jsedit-object-key  ">---</div>');
                     var key_div = $( $('.jsedit-object-key', context).get(-1) );
                     key_div.text(key);
+                    data._json[key].key_div = key_div;
+                    data._json[key].key = key;
 
                     context.append('<div class="jsedit jsedit-object jsedit-object-value">...</div>');
                     var value_div = $( $('.jsedit-object-value', context).get(-1) );
                     value_div.text('');
                     value_div.jsonEdit({ json : a[key], edit : data.edit, count : data.count + 1 });
+                    data._json[key].value_div = value_div;
+                    data._json[key].value = a[key];
                 }
 
                 context.append( '<div class="jsedit jsedit-object jsedit-object-close">}</div>' );
@@ -93,18 +99,18 @@
                 var data = this.data('jsonEdit');
                 var max_width = 0;
 
-                for ( var i in data._json ) {
-                    if ( data._json.hasOwnProperty(i) ) {
-                        data._json[i].key_div.css('width', 'auto');
-                        var width = data._json[i].key_div.width();
-                        //console.log(i, width, data._json[i]);
+                for ( var key in data._json ) {
+                    if ( data._json.hasOwnProperty(key) ) {
+                        data._json[key].key_div.css('width', 'auto');
+                        var width = data._json[key].key_div.width();
+                        //console.log(key, width, data._json[key]);
                         if ( width > max_width ) max_width = width;
                     }
                 }
 
-                for ( var i in data._json ) {
-                    if ( data._json.hasOwnProperty(i) ) {
-                        data._json[i].key_div.css('width', max_width + 'px');
+                for ( var key in data._json ) {
+                    if ( data._json.hasOwnProperty(key) ) {
+                        data._json[key].key_div.css('width', max_width + 'px');
                     }
                 }
 

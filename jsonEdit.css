@@ -4,6 +4,10 @@
  * The classes are applied in a hireachy
  */
 
+.jsedit.jsedit-top {
+    border : 1px solid #FDF;
+}
+
 .jsedit.jsedit-object.jsedit-object-key,
 .jsedit.jsedit-object.jsedit-object-value,
 .jsedit.jsedit-array.jsedit-array-value {
