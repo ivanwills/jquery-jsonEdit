@@ -1,61 +1,61 @@
 (function($) {
 
     var count   = 0;
-    var key_click = function(self, key) {
+    var key_click = function(key) {
     };
-    var value_click = function(self, key) {
+    var value_click = function(key) {
     };
-    var add_click = function(self, key) {
+    var add_click = function(key) {
     };
     var types = {
         "null" : {
             is   : function(a) { return a === null },
-            view : function(self, a) {
-                var context = self.data('jsonEdit').context;
+            view : function(a) {
+                var context = this.data('jsonEdit').context;
                 context.html( '<span class="jsedit jsedit-data jsedit-data-null">null</span>' );
             },
         },
         "boolean" : {
             is   : function(a) { return a === true || a === false },
-            view : function(self, a) {
-                var context = self.data('jsonEdit').context;
+            view : function(a) {
+                var context = this.data('jsonEdit').context;
                 context.html( '<span class="jsedit jsedit-data jsedit-data-bool">' + a + '</span>' );
             },
         },
         number : {
             is   : function(a) { return a === a * 1 },
-            view : function(self, a) {
-                var context = self.data('jsonEdit').context;
+            view : function(a) {
+                var context = this.data('jsonEdit').context;
                 context.html( '<span class="jsedit jsedit-data jsedit-data-number">' + a + '</span>' );
             },
         },
         string : {
             is   : function(a) { return a === a + '' },
-            view : function(self, a) {
-                var context = self.data('jsonEdit').context;
+            view : function(a) {
+                var context = this.data('jsonEdit').context;
                 context.html( '<span class="jsedit jsedit-data jsedit-data-string">' + a + '</span>' );
             },
         },
         date : {
             is   : function(a) { return a instanceof Date },
-            view : function(self, a) {
-                var context = self.data('jsonEdit').context;
+            view : function(a) {
+                var context = this.data('jsonEdit').context;
                 context.html( '<span class="jsedit jsedit-data jsedit-data-string">' + a.toLocalString() + '</span>' );
             },
         },
         array : {
             is   : function(a) { return typeof a == 'object' && a instanceof Array },
-            view : function(self, a) {
-                var data    = self.data('jsonEdit');
+            view : function(a) {
+                var data    = this.data('jsonEdit');
                 var context = data.context;
 
                 context.append( '<div class="jsedit jsedit-array jsedit-array-open">[</div>' );
 
                 for ( var key in a ) {
                     // if this isn't a plain array ignore inherited properties
-                    if ( !a.hasOwnProperty(key) ) break;
+                    if ( !a.hasOwnProperty(key) ) continue;
 
-                    context.append('<div class="jsedit jsedit-array jsedit-array-value">...</div>');
+                    context.append('<div class="jsedit jsedit-array jsedit-array-value" title="['+key+']">...</div>');
                     var value_div = $( $('.jsedit-array-value', context).get(-1) );
                     value_div.text('');
                     value_div.jsonEdit({ json : a[key], edit : data.edit, count : data.count + 1 });
@@ -65,16 +65,16 @@
             }
         },
         object : {
-            is   : function(a) { return typeof a == 'object' },
-            view : function(self, a) {
-                var data    = self.data('jsonEdit');
+            is   : function(a) { return typeof a == 'object' && !( a instanceof Array ) },
+            view : function(a) {
+                var data    = this.data('jsonEdit');
                 var context = data.context;
 
                 context.append( '<div class="jsedit jsedit-object jsedit-object-open">{</div>' );
 
                 for ( var key in a ) {
                     // if this isn't a plain object ignore inherited properties
-                    if ( !a.hasOwnProperty(key) ) break;
+                    if ( !a.hasOwnProperty(key) ) continue;
 
                     context.append('<div class="jsedit jsedit-object jsedit-object-key  ">---</div>');
                     var key_div = $( $('.jsedit-object-key', context).get(-1) );
@@ -87,6 +87,27 @@
                 }
 
                 context.append( '<div class="jsedit jsedit-object jsedit-object-close">}</div>' );
+                types.object.adjust.call(this);
+            },
+            adjust : function() {
+                var data = this.data('jsonEdit');
+                var max_width = 0;
+
+                for ( var i in data._json ) {
+                    if ( data._json.hasOwnProperty(i) ) {
+                        data._json[i].key_div.css('width', 'auto');
+                        var width = data._json[i].key_div.width();
+                        //console.log(i, width, data._json[i]);
+                        if ( width > max_width ) max_width = width;
+                    }
+                }
+
+                for ( var i in data._json ) {
+                    if ( data._json.hasOwnProperty(i) ) {
+                        data._json[i].key_div.css('width', max_width + 'px');
+                    }
+                }
+
             }
         }
     };
@@ -137,7 +158,7 @@
                     data = self.data('jsonEdit');
                 }
 
-                if ( data.count > 2 ) {
+                if ( data.count > 9 ) {
                     console.error('too deep', data);
                     return;
                 }
@@ -145,7 +166,8 @@
                 for ( var type in types ) {
                     if ( types[type].is(data.json) ) {
                         data.type = type;
-                        types[type].view( self, data.json );
+                        types[type].view.call( self, data.json );
+                        break;
                     }
                 }
 

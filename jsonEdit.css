@@ -9,14 +9,27 @@
 .jsedit.jsedit-array.jsedit-array-value {
     margin-left : 20px;
     float : left;
+    clear : right;
+    border : 1px solid #DDD;
+    min-width : 5px;
+    min-height : 5px;
+}
+.jsedit.jsedit-object.jsedit-object-value {
+    margin-left : 5px;
+}
+.jsedit.jsedit-array.jsedit-array-value {
+    float : none;
 }
 .jsedit.jsedit-object.jsedit-object-key {
-    width : 30em;
+    width : 10em;
     float : left;
     clear : left;
 }
+.jsedit.jsedit-array.jsedit-array-open,
+.jsedit.jsedit-array.jsedit-array-close,
 .jsedit.jsedit-object.jsedit-object-open,
 .jsedit.jsedit-object.jsedit-object-close {
-    float : left;
+    float : none;
     clear : both;
+    width : 100%;
 }
