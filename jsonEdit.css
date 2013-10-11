@@ -5,7 +5,7 @@
  */
 
 .jsedit.jsedit-top {
-    border : 1px solid #FDF;
+    border : 0px solid #FDF;
 }
 
 .jsedit.jsedit-object.jsedit-object-key,
@@ -14,7 +14,7 @@
     margin-left : 20px;
     float : left;
     clear : right;
-    border : 1px solid #DDD;
+    border : 0px solid #DDD;
     min-width : 5px;
     min-height : 5px;
 }
@@ -36,4 +36,37 @@
     float : none;
     clear : both;
     width : 100%;
+}
+
+.jsedit.jsedit-data-null {
+    color : blue;
+}
+.jsedit.jsedit-data-bool-true {
+    color : green;
+}
+.jsedit.jsedit-data-bool-false {
+    color : red;
+}
+.jsedit.jsedit-data-nuber {
+    color : grey;
+}
+
+.jsedit.jsedit-top.collapse {
+    height : auto;
+}
+.jsedit.collapse .jsedit.jsedit-array,
+.jsedit.collapse .jsedit.jsedit-object {
+    display : none;
+}
+.jsedit.collapse .jsedit.jsedit-array.jsedit.jsedit-array-close,
+.jsedit.collapse .jsedit.jsedit-array.jsedit.jsedit-array-open,
+.jsedit.collapse .jsedit.jsedit-object.jsedit.jsedit-object-close,
+.jsedit.collapse .jsedit.jsedit-object.jsedit.jsedit-object-open {
+    display : inline;
+}
+.jsedit .collapsed {
+    display : none;
+}
+.jsedit.collapse .collapsed {
+    display : inline;
 }
