@@ -193,11 +193,13 @@
                     // if this isn't a plain array ignore inherited properties
                     if ( !a.hasOwnProperty(key) ) continue;
 
-                    context.append('<div class="jsedit jsedit-array jsedit-array-value" title="['+key+']"></div>');
+                    context.append('<div class="jsedit jsedit-array jsedit-array-value" title="['+key+']"></div><div class="jsedit jsedit-array jsedit-array-comma">,</div>');
                     var value_div = $( $('.jsedit-array-value', context).get(-1) );
                     value_div.text('');
                     value_div.jsonEdit({ json : a[key], edit : data.edit, depth : data.depth + 1, max_depth : data.max_depth });
                 }
+                var commas = $('.jsedit.jsedit-array.jsedit-array-comma', context);
+                $(commas.get(commas.size() - 1)).remove();
 
                 context.append( '<div class="jsedit jsedit-array jsedit-array-close">]</div>' );
             },
@@ -229,13 +231,15 @@
                     data._json[key].key_div = key_div;
                     data._json[key].key = key;
 
-                    context.append('<div class="jsedit jsedit-object jsedit-object-value"></div>');
+                    context.append('<div class="jsedit jsedit-object jsedit-object-value"></div><div class="jsedit jsedit-object jsedit-object-comma">,</div>');
                     var value_div = $( $('.jsedit-object-value', context).get(-1) );
                     value_div.text('');
                     value_div.jsonEdit({ json : a[key], edit : data.edit, depth : data.depth + 1, max_depth : data.max_depth });
                     data._json[key].value_div = value_div;
                     data._json[key].value = a[key];
                 }
+                var commas = $('.jsedit.jsedit-object.jsedit-object-comma', context);
+                $(commas.get(commas.size() - 1)).remove();
 
                 context.append( '<div class="jsedit jsedit-object jsedit-object-close">}</div>' );
                 types.object.adjust.call(this);

@@ -12,7 +12,7 @@
     content : ':';
 }
 .jsedit.jsedit-object.jsedit-object-value:after {
-    content : ',';
+    /*content : ',';*/
 }
 .jsedit.jsedit-object.jsedit-object-key,
 .jsedit.jsedit-object.jsedit-object-value,
@@ -42,6 +42,10 @@
     float : none;
     clear : both;
     width : 100%;
+}
+.jsedit.jsedit-array.jsedit-array-comma,
+.jsedit.jsedit-object.jsedit-object-comma {
+    float : right;
 }
 
 .jsedit.jsedit-data-null {
